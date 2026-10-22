@@ -8,5 +8,7 @@
     "@types/node": "^26.6.5",
     "dotenv": "^18.0.8"
   },
-  "scripts": {}
+  "scripts": {
+    "test": "playwright test"
+  }
 }
