@@ -7,11 +7,13 @@ const userPass = process.env.USER_PASS;
 
 test("Success logging Users", async ({ page }) => {
   await loginUser(page);
+  await page.goto("/inventory.html");
+  await expect(page).toHaveURL("/inventory.html");
 });
 
 test("Invalid logging Users by login", async ({ page }) => {
   const loginPage = new LoginPage(page);
-  await loginPage.goto();
+  await loginPage.goToAuthPage();
   await loginPage.login("wrong login id", userPass as string);
   await expect(page.locator('[data-test="error"]')).toBeVisible();
   await expect(page.locator('[data-test="error"]')).toHaveText(
@@ -22,7 +24,7 @@ test("Invalid logging Users by login", async ({ page }) => {
 
 test("Invalid logging Users by password", async ({ page }) => {
   const loginPage = new LoginPage(page);
-  await loginPage.goto();
+  await loginPage.goToAuthPage();
   await loginPage.login(userLoginId as string, `password wrong`);
   await expect(page.locator('[data-test="error"]')).toBeVisible();
   await expect(page.locator('[data-test="error"]')).toHaveText(

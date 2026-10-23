@@ -3,7 +3,7 @@ import { loginUser } from "../../utils/auth";
 
 test("add an item to bucket", async ({ page }) => {
   await loginUser(page);
-  await page.goto("/inventory.html");
+  await page.waitForURL("/inventory.html");
   await page.locator("#add-to-cart-sauce-labs-backpack").click();
   await expect(page.locator("#remove-sauce-labs-backpack")).toHaveText(
     "Remove",
