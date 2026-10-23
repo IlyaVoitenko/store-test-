@@ -1,12 +1,12 @@
 import { test, expect } from "@playwright/test";
-import { Login } from "../../utils/auth";
 import { LoginPage } from "../../pages/LoginPage";
+import { loginUser } from "../../utils/auth";
 
 const userLoginId = process.env.USER_LOGIN_ID;
 const userPass = process.env.USER_PASS;
 
 test("Success logging Users", async ({ page }) => {
-  await Login(page);
+  await loginUser(page);
 });
 
 test("Invalid logging Users by login", async ({ page }) => {
