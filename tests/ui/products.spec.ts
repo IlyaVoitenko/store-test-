@@ -43,3 +43,27 @@ test("Products are sorted by price since high to low", async ({ page }) => {
   const sortedPrices = numericPrices.sort((a, b) => b - a);
   await expect(numericPrices).toEqual(sortedPrices);
 });
+
+test("Products are sorted by range since A to Z", async ({ page }) => {
+  await loginUser(page);
+  await page.waitForURL("/inventory.html");
+  const products = await page.locator(".product_sort_container");
+  await products.selectOption("az");
+  const titlesProducts = await page
+    .locator(".inventory_item_name")
+    .allTextContents();
+  const sortedTitle = titlesProducts.sort();
+  await expect(titlesProducts).toEqual(sortedTitle);
+});
+
+test("Products are sorted by range since Z to A ", async ({ page }) => {
+  await loginUser(page);
+  await page.waitForURL("/inventory.html");
+  const products = await page.locator(".product_sort_container");
+  await products.selectOption("za");
+  const titlesProducts = await page
+    .locator(".inventory_item_name")
+    .allTextContents();
+  const sortedTitle = titlesProducts.sort((a, b) => (a > b ? -1 : 1));
+  await expect(titlesProducts).toEqual(sortedTitle);
+});
