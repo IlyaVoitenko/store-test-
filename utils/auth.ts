@@ -1,5 +1,6 @@
 import { type Page } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage";
+
 const userLoginId = process.env.USER_LOGIN_ID;
 const userPass = process.env.USER_PASS;
 

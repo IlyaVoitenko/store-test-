@@ -21,3 +21,14 @@ test("remove an item to bucket", async ({ page }) => {
   await productPage.removeBackpack();
   await productPage.expectCartCount();
 });
+
+test("Products are sorted by price since low to high", async ({ page }) => {
+  await loginUser(page);
+  await page.waitForURL("/inventory.html");
+  const products = await page.locator(".product_sort_container");
+  await products.selectOption("lohi");
+  const prices = await page.locator(".inventory_item_price").allTextContents();
+  const numericPrices = prices.map((price) => +price.replace("$", ""));
+  const sortedPrices = numericPrices.sort((a, b) => a - b);
+  await expect(numericPrices).toEqual(sortedPrices);
+});
